@@ -20,18 +20,10 @@ app.get('/health', async () => {
     return { status: 'error', message: 'Database connection failed', error: error.message };
   }
 })
-// .guard(
-//     {
-//         beforeHandle({ set, cookie: { session }, error }) {
-//             console.log("Set: ", set.headers.authorization)
-//             // return error(401)
-//         }
-//     }
-// )
 .group(
     '/api/environment',
     AuthGuard,
-    (app) => EnvironmentRoutes(app) //.use(AuthMiddlewareBearer)
+    (app) => EnvironmentRoutes(app)
 );
 
 // Start the server
