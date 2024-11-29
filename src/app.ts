@@ -2,7 +2,7 @@ import { Elysia } from 'elysia';
 import { config } from 'dotenv';
 import { EnvironmentRoutes } from './routes/environment.route';
 import { Database } from './config/database';
-import jwt from '@elysiajs/jwt';
+import { AuthGuard } from './middlewares/auth.middleware';
 
 // Load .env variables
 config();
@@ -19,25 +19,20 @@ app.get('/health', async () => {
   } catch (error) {
     return { status: 'error', message: 'Database connection failed', error: error.message };
   }
-}).group(
+})
+// .guard(
+//     {
+//         beforeHandle({ set, cookie: { session }, error }) {
+//             console.log("Set: ", set.headers.authorization)
+//             // return error(401)
+//         }
+//     }
+// )
+.group(
     '/api/environment',
-    {},
-    (app) => EnvironmentRoutes(app).use(
-        jwt({
-          name: 'jwt',
-          secret: process.env.JWT_SECRET as string,
-        })
-      )
+    AuthGuard,
+    (app) => EnvironmentRoutes(app) //.use(AuthMiddlewareBearer)
 );
-
-// Protect all environment routes with AuthMiddleware
-// app.use(AuthMiddleware).group('/api/environment', (group) => {
-//     // group.use(AuthMiddleware);
-//     EnvironmentRoutes(group);
-//     return EnvironmentRoutes(group.use(AuthMiddleware)); // Return the modified group
-// }, {
-    
-// });
 
 // Start the server
 app.listen(parseInt(PORT, 10), () => {
