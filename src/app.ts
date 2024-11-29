@@ -3,6 +3,7 @@ import { config } from 'dotenv';
 import { EnvironmentRoutes } from './routes/environment.route';
 import { Database } from './config/database';
 import { AuthGuard } from './middlewares/auth.middleware';
+import { AuthRoutes } from './routes/auth.route';
 
 // Load .env variables
 config();
@@ -21,6 +22,10 @@ app.get('/health', async () => {
   }
 })
 .group(
+    '/api/auth',
+    {},
+    (app) => AuthRoutes(app)
+).group(
     '/api/environment',
     AuthGuard,
     (app) => EnvironmentRoutes(app)
