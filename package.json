@@ -15,6 +15,9 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@elysiajs/bearer": "^1.1.2",
+    "@elysiajs/jwt": "^1.1.1",
+    "@elysiajs/swagger": "^1.1.6",
     "bcrypt": "^5.1.1",
     "db-migrate": "^0.11.14",
     "db-migrate-pg": "^1.5.2",

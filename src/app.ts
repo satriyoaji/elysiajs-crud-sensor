@@ -2,6 +2,7 @@ import { Elysia } from 'elysia';
 import { config } from 'dotenv';
 import { EnvironmentRoutes } from './routes/environment.route';
 import { Database } from './config/database';
+import jwt from '@elysiajs/jwt';
 
 // Load .env variables
 config();
@@ -21,7 +22,12 @@ app.get('/health', async () => {
 }).group(
     '/api/environment',
     {},
-    (app) => EnvironmentRoutes(app)
+    (app) => EnvironmentRoutes(app).use(
+        jwt({
+          name: 'jwt',
+          secret: process.env.JWT_SECRET as string,
+        })
+      )
 );
 
 // Protect all environment routes with AuthMiddleware

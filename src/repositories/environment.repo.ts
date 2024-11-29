@@ -5,11 +5,11 @@ export const EnvironmentRepository = {
     try {
       const query = `INSERT INTO environment_sensors (name, type, value)
                      VALUES ($1, $2, $3) RETURNING *`;
-      const values = [data.name, data.type, data.value, data.unit, data.location];
+      const values = [data.name, data.type, data.value];
       const result = await pool.query(query, values);
       return result.rows[0];
     } catch (error) {
-      console.error(`[EnvironmentRepository.create] Error: ${error.message}`, {
+      console.error(`[EnvironmentRepository.create] Error: ${error}`, {
         stack: error.stack,
         file: __filename,
       });
@@ -22,7 +22,7 @@ export const EnvironmentRepository = {
       const result = await pool.query(`SELECT * FROM environment_sensors WHERE id = $1`, [id]);
       return result.rows[0];
     } catch (error) {
-      console.error(`[EnvironmentRepository.findById] Error: ${error.message}`, {
+      console.error(`[EnvironmentRepository.findById] Error: ${error}`, {
         stack: error.stack,
         file: __filename,
       });
@@ -35,7 +35,7 @@ export const EnvironmentRepository = {
       const result = await pool.query(`SELECT * FROM environment_sensors`);
       return result.rows;
     } catch (error) {
-      console.error(`[EnvironmentRepository.findAll] Error: ${error.message}`, {
+      console.error(`[EnvironmentRepository.findAll] Error: ${error}`, {
         stack: error.stack,
         file: __filename,
       });
@@ -48,11 +48,11 @@ export const EnvironmentRepository = {
       const query = `UPDATE environment_sensors
                      SET name = $1, type = $2, value = $3, updated_at = CURRENT_TIMESTAMP
                      WHERE id = $4 RETURNING *`;
-      const values = [data.name, data.type, data.value, data.unit, data.location, id];
+      const values = [data.name, data.type, data.value, id];
       const result = await pool.query(query, values);
       return result.rows[0];
     } catch (error) {
-      console.error(`[EnvironmentRepository.update] Error: ${error.message}`, {
+      console.error(`[EnvironmentRepository.update] Error: ${error}`, {
         stack: error.stack,
         file: __filename,
       });
@@ -65,7 +65,7 @@ export const EnvironmentRepository = {
       const result = await pool.query(`DELETE FROM environment_sensors WHERE id = $1 RETURNING *`, [id]);
       return result.rows[0];
     } catch (error) {
-      console.error(`[EnvironmentRepository.delete] Error: ${error.message}`, {
+      console.error(`[EnvironmentRepository.delete] Error: ${error}`, {
         stack: error.stack,
         file: __filename,
       });
