@@ -14,7 +14,7 @@ export const AuthController = {
       const token = AuthService.generateToken(payload);
 
       handler.set.status = 200
-      return { status: 'OK', token: `Bearer ${token}`, message: 'data sensor successfully fetched' };
+      return { status: 'OK', token: `Bearer ${token}`, message: 'successfully Logged in' };
     } catch (error) {
       console.error('[AuthController.generateToken] Error:', error);
 
