@@ -4,6 +4,7 @@ import { EnvironmentRoutes } from './routes/environment.route';
 import { Database } from './config/database';
 import { AuthGuard } from './middlewares/auth.middleware';
 import { AuthRoutes } from './routes/auth.route';
+import { cors } from '@elysiajs/cors';
 
 // Load .env variables
 config();
@@ -11,6 +12,9 @@ config();
 const PORT = process.env.PORT || '3000';
 
 const app = new Elysia();
+app.use(cors({
+    origin: '*'
+}))
 
 // Health check route (No middleware required)
 app.get('/health', async () => {
