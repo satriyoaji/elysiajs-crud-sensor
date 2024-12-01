@@ -13,18 +13,7 @@ yarn dev
 ```
 
 ### SQL Data Migration
-You can run this DDL SQL script to operate the data in Database:
-```SQL 
--- PostgreSQL
-CREATE TABLE environment_sensors (
-  id SERIAL PRIMARY KEY,
-  name VARCHAR(100) NOT NULL,
-  type VARCHAR(50) NOT NULL,
-  value NUMERIC NOT NULL,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-```
+You can run the DDL SQL script to operate the data in Database in file `./migrations/sqls/`
 
 ### Building
 
